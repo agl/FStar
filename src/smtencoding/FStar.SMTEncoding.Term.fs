@@ -455,7 +455,11 @@ let constructor_to_decl (name, fields, sort, id, injective) =
         if injective
         then injective_constructor (name, fields, sort)
         else [] in
-    Caption (format1 "<start constructor %s>" name)::cdecl::cid::projs@[disc]@[Caption (format1 "</end constructor %s>" name)]
+    match name with
+    | "Tm_uvar" ->
+      Caption (format1 "<start constructor %s>" name)::cdecl::projs@[disc]@[Caption (format1 "</end constructor %s>" name)]
+    | _ ->
+      Caption (format1 "<start constructor %s>" name)::cdecl::cid::projs@[disc]@[Caption (format1 "</end constructor %s>" name)] 
 
 (****************************************************************************)
 (* Standard SMTLib prelude for F* and some term constructors                *)
